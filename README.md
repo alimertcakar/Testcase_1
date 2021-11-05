@@ -1,12 +1,9 @@
-# Atolye15 Question
-
-Please update `src/move.ts` to pass tests. You can find the tests in `src/move.spec.ts`.
-
 ## Acceptance criteria
 
 Imagine an array that contains folders. These folders can have files in it. `move` function moves a file to another folder and returns the new state of given list.
 
 ### Example list
+
 ```ts
 const list = [
   {
@@ -24,7 +21,7 @@ const list = [
     name: 'Folder 2',
     files: [{ id: '7', name: 'File 5' }],
   },
-]
+];
 ```
 
 If I run `move(list, '4', '6')` then I expect file with id `4` moved to the folder which has id `6`. Function should return the new state below;
@@ -53,30 +50,28 @@ const result = [
 
 ### Move function signature
 
-| Key         | Type             | Description                  |
-|-------------|------------------|------------------------------|
-| list        | Folder[]         | Given list                   |
-| source      | string           | Id of the moved file         |
-| destination | string           | Id of the folder to be moved |
-
+| Key         | Type     | Description                  |
+| ----------- | -------- | ---------------------------- |
+| list        | Folder[] | Given list                   |
+| source      | string   | Id of the moved file         |
+| destination | string   | Id of the folder to be moved |
 
 ### Folder shape
 
-| Key   | Type           | Description                 |
-|-------|----------------|-----------------------------|
-| id    | string         | Unique identifier of folder |
-| name  | string         | Name of the folder          |
-| files | File []        | Files in this folder        |
+| Key   | Type    | Description                 |
+| ----- | ------- | --------------------------- |
+| id    | string  | Unique identifier of folder |
+| name  | string  | Name of the folder          |
+| files | File [] | Files in this folder        |
 
 ### File shape
 
 | Key  | Type   | Description               |
-|------|--------|---------------------------|
+| ---- | ------ | ------------------------- |
 | id   | string | Unique identifier of file |
 | name | string | Name of the file          |
 
-
-> NOTE: All IDs are unique.  
+> NOTE: All IDs are unique.
 
 ## Lint the code
 
@@ -96,4 +91,4 @@ yarn test
 
 ```bash
 yarn format
-``` 
+```
