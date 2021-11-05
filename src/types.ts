@@ -12,4 +12,4 @@ export interface Folder {
   files: File[];
 }
 
-export type List = Folder[];
+export type FolderList = Folder[];

@@ -1,21 +1,20 @@
 /* eslint-disable no-console */
-import { FileName, FolderName, List } from 'src/types';
-
+import { FileName, FolderName, FolderList } from 'src/types';
+/**
+ * Moves a file to a new location.
+ */
 interface FileMover {
-  moveFileToFolder: (sourceFile: FileName, destinationFolder: FolderName) => List;
-
-  // sourceFile: FileName;
-  // destinationFolder: FolderName;
+  moveFileToFolder: (sourceFile: FileName, destinationFolder: FolderName) => FolderList;
 }
 
 export default class FileMoverImpl implements FileMover {
-  constructor(private list: List) {
+  constructor(private list: FolderList) {
     if (!list) {
       // throw new InvalidParameterError();
     }
   }
 
-  moveFileToFolder(sourceFile: FileName, destinationFolder: FolderName): List {
+  moveFileToFolder(sourceFile: FileName, destinationFolder: FolderName): FolderList {
     if (!sourceFile || destinationFolder) {
       // throw new InvalidParameterError();
     }

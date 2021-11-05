@@ -7,7 +7,7 @@
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "format": "prettier --write 'src/**/*.ts' && yarn lint:eslint --fix",
-    "run:dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q ./dist/index.js\" "
+    "run:dev": "cross-env NODE_ENV=development concurrently \"rimraf dist\"  \"tsc --watch\" \"nodemon -q ./dist/index.js\" "
   },
   "devDependencies": {
     "@types/jest": "^26.0.3",
@@ -23,6 +23,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
     "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.1.1",
     "typescript": "^3.9.5"
   },
