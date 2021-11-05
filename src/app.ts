@@ -22,4 +22,4 @@ const list: FolderList = [
 
 const resultList = new FileMover(list).moveFileToFolder('a', 'b');
 
-console.log(resultList, 'resultList');
+console.log(resultList, 'resultList!');

@@ -7,7 +7,7 @@
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "format": "prettier --write 'src/**/*.ts' && yarn lint:eslint --fix",
-    "run:dev": "cross-env NODE_ENV=development concurrently \"rimraf dist\"  \"tsc --watch\" \"nodemon -q ./dist/index.js\" "
+    "run:dev": "cross-env NODE_ENV=development concurrently \"rimraf dist\"  \"tsc --watch\" \"nodemon -q ./dist/app.js\" "
   },
   "devDependencies": {
     "@types/jest": "^26.0.3",
