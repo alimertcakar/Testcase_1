@@ -1,10 +1,15 @@
+export type FileName = string;
+export type FolderName = string;
+
 export interface File {
   id: string;
-  name: string;
+  name: FileName;
 }
 
-export interface List {
+export interface Folder {
   id: string;
-  name: string;
+  name: FolderName;
   files: File[];
 }
+
+export type List = Folder[];
