@@ -23,7 +23,3 @@ const list: FolderList = [
 const resultList = new FileMover(list).moveFileToFolder('a', 'b');
 
 console.log(resultList, 'resultList!');
-
-setTimeout(() => {
-  console.log('aaaa');
-}, 4000);
