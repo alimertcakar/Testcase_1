@@ -1,4 +1,4 @@
-import move from './move';
+import move from '.';
 
 describe('move', () => {
   it('moves given file to another folder', () => {

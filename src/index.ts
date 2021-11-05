@@ -1,6 +1,8 @@
-import move from './move';
+/* eslint-disable no-console */
+import FileMover from './file-mover';
+import { List } from './types';
 
-const list = [
+const list: List[] = [
   {
     id: '1',
     name: 'Folder 1',
@@ -18,4 +20,6 @@ const list = [
   },
 ];
 
-const resultList = move(list, 'b', 'c');
+const resultList = new FileMover(list).move('a', 'b');
+
+console.log(resultList, 'resultList');
