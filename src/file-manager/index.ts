@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
-import { FolderList } from 'src/types';
-import { allEmpty } from 'src/utils';
+import { FolderList } from '../types';
+import { anyEmpty } from '../utils';
 
 interface FileManager {
   //*  moves file to a folder and returns a new FileManager instance */
   moveFileToFolder: (sourceFile: string, destinationFolder: string) => FileMoverImpl;
 }
 
-// returns tuple [folderId,fileId]
-type ReturnGetFileById = [string | null, string | null];
+// tuple [folderId,fileId]
+type ReturnGetFileById = [string, string];
 
 export default class FileMoverImpl implements FileManager {
   private constructor(private _folderList: FolderList) {}
@@ -25,7 +25,7 @@ export default class FileMoverImpl implements FileManager {
   }
 
   public moveFileToFolder(sourceFileId: string, destinationFolderId: string): FileMoverImpl {
-    if (allEmpty([sourceFileId, destinationFolderId])) {
+    if (anyEmpty(sourceFileId, destinationFolderId)) {
       throw new Error('Invalid parameter');
     }
     // copy folderList
@@ -33,14 +33,12 @@ export default class FileMoverImpl implements FileManager {
 
     // get file to copy
     const [folderId, fileId] = this.getFileById(sourceFileId);
-    if (!folderId || !fileId) {
-      throw new Error('File to move not found');
-    }
+
+    // splice the file
     const fileToMove = newFolderList[+folderId].files.splice(+fileId, +fileId)[0];
 
-    const destinationFolderIndex = this.getFolderById(destinationFolderId);
-
     // move...
+    const destinationFolderIndex = this.getFolderById(destinationFolderId);
     newFolderList[destinationFolderIndex].files.push(fileToMove);
 
     this._folderList = newFolderList;
@@ -55,8 +53,7 @@ export default class FileMoverImpl implements FileManager {
         if (file.id === id) return [i.toString(), j.toString()];
       }
     }
-
-    return [null, null];
+    throw new Error('File to move not found');
   }
 
   private getFolderById(id: string) {

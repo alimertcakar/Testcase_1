@@ -20,7 +20,6 @@ const folderList: FolderList = [
   },
 ];
 
-const fileManager = FileManager.create(folderList).moveFileToFolder('4', '6');
+const fileManager = FileManager.create(folderList);
 
-console.log(fileManager.folderList, 'resultList!');
-console.log('xyz');
+console.log(fileManager.moveFileToFolder('4', '6').folderList);
