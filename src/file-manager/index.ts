@@ -23,11 +23,11 @@ export default class FileMoverImpl implements FileManager {
 
   moveFileToFolder(sourceFile: FileName, destinationFolder: FolderName): FileMoverImpl {
     if (!sourceFile || destinationFolder) {
-      // throw new InvalidParameterError();
+      throw new Error('Invalid parameter');
     }
     const newList: FolderList = [];
     // move...
-    this.list = newList;
+    this._folderList = newList;
     return this;
   }
 }
