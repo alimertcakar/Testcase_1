@@ -28,6 +28,10 @@ export default class FileMoverImpl implements FileManager {
     if (anyEmpty(sourceFileId, destinationFolderId)) {
       throw new Error('Invalid parameter');
     }
+
+    //You cannot move a folder
+    //You cannot specify a file as the destination
+
     // copy folderList
     const newFolderList: FolderList = this._folderList;
 
