@@ -13,15 +13,11 @@
     "plugin:jest/all",
     "plugin:eslint-comments/recommended"
   ],
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "jest",
-    "eslint-comments"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "jest", "eslint-comments"],
   "rules": {
     "prettier/prettier": "error",
     "eslint-comments/no-unused-disable": "error",
-    "jest/prefer-expect-assertions": "off"
+    "jest/prefer-expect-assertions": "off",
+    "no-underscore-dangle": "off"
   }
 }
