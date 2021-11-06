@@ -9,4 +9,9 @@ export interface Folder {
   files: File[];
 }
 
+export enum FileType {
+  Folder,
+  File,
+}
+
 export type FolderList = Folder[];

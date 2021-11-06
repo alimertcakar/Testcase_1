@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { FolderList } from '../../types';
+import { FileType, FolderList } from '../../types';
 import { anyEmpty, isEmpty } from '../../utils';
 
 interface FileManager {
@@ -81,12 +81,14 @@ export default class FileMoverImpl implements FileManager {
    * Find many files or folders by id. More performant then multiple get
    * @param id file / folder id
    */
-  private getMany(ids: Array<string>): Map<any, any> {
+  private getMany(ids: Array<string>): Map<{ id: string; type: string }, ReturnGet> {
     let result = new Map(); //ReturnGet[]
     this._folderList.forEach((folder, folderIndex) => {
-      if (ids.includes(folder.id)) result.set(folder.id, [folderIndex, null]);
+      if (ids.includes(folder.id))
+        result.set({ id: folder.id, type: FileType.Folder }, [folderIndex, null]);
       folder.files.forEach((file, fileIndex) => {
-        if (ids.includes(file.id)) result.set(folder.id, [folderIndex, fileIndex]);
+        if (ids.includes(file.id))
+          result.set({ id: folder.id, type: FileType.File }, [folderIndex, fileIndex]);
       });
     });
 
