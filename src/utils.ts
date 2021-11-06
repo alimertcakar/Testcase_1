@@ -1,3 +1,6 @@
+import {performance} from "perf_hooks";
+
+
 export function isEmpty<T>(value: T): boolean {
   return typeof value === 'undefined' || value === null;
 }
@@ -14,18 +17,29 @@ export function anyEmpty<T>(...values: Array<T>): boolean {
 
 type logPerformanceCallback = (...args: any) => void;
 
-export class Performance {
+export class PerformanceTool {
 static index = 0;
-
-  static measure(callbackToPerfCheck: logPerformanceCallback){
+/**
+ * measures performance of the callback
+ * @param callbackToPerfCheck callback function to test performance on
+ * @param poolSize default is 1, defines how many times callbackToPerfCheck will be tested and the average will be returned
+ * @return runtime of callbackToPerfCheck, if poolsize > 1, average runtime.
+ */
+  static measure(callbackToPerfCheck: logPerformanceCallback, poolSize?:number){
     ++this.index;
 
-    const t0 = performance.now();
-    callbackToPerfCheck();
-    const t1 = performance.now();
+    const totalRunTime = this.runPerformanceTest(callbackToPerfCheck);
 
-    const totalRunTime = t1-t0;
     console.log(`Perf test #${this.index}: Tested function ${callbackToPerfCheck.name}, it ran in ${totalRunTime} miliseconds`);
     return totalRunTime;
   }
+
+  private static runPerformanceTest(callbackToPerfCheck: logPerformanceCallback){
+    const t0 = performance.now();
+    callbackToPerfCheck();
+    const t1 = performance.now();
+    const totalRunTime = t1-t0;
+    return totalRunTime;
+  }
 }
+

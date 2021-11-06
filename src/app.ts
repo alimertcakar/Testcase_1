@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import FileManager from './file-manager';
 import { FolderList } from './types';
+import { PerformanceTool } from './utils';
 
 const folderList: FolderList = [
   {
@@ -20,6 +21,9 @@ const folderList: FolderList = [
   },
 ];
 
-const fileManager = FileManager.create(folderList);
-
-console.log(fileManager.moveFileToFolder('4', '6').folderList);
+function run() {
+  const fileManager = FileManager.create(folderList);
+  console.log(fileManager.moveFileToFolder('4', '6').folderList);
+}
+console.log('Starting');
+PerformanceTool.measure(run, 5);
