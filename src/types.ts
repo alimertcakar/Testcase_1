@@ -1,14 +1,11 @@
-export type FileName = string;
-export type FolderName = string;
-
 export interface File {
   id: string;
-  name: FileName;
+  name: string;
 }
 
 export interface Folder {
   id: string;
-  name: FolderName;
+  name: string;
   files: File[];
 }
 
