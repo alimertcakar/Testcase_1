@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { FolderList } from '../types';
-import { anyEmpty } from '../utils';
+import { FolderList } from '../../types';
+import { anyEmpty } from '../../utils';
 
 interface FileManager {
   //*  moves file to a folder and returns a new FileManager instance */

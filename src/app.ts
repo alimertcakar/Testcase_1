@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import FileManager from './file-manager';
+import FileManager from './solution-2/file-manager';
 import { FolderList } from './types';
 import { PerformanceTool } from './utils';
 
