@@ -3,7 +3,6 @@ import { FolderList } from '../../types';
 import { anyEmpty } from '../../utils';
 
 interface FileManager {
-  //*  moves file to a folder and returns a new FileManager instance */
   moveFileToFolder: (sourceFile: string, destinationFolder: string) => FileMoverImpl;
 }
 

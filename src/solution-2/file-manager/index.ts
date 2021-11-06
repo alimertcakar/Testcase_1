@@ -3,7 +3,6 @@ import { FolderList } from '../../types';
 import { anyEmpty } from '../../utils';
 
 interface FileManager {
-  //*  moves file to a folder and returns a new FileManager instance */
   moveFileToFolder: (sourceFile: string, destinationFolder: string) => FileMoverImpl;
 }
 
@@ -50,17 +49,25 @@ export default class FileMoverImpl implements FileManager {
   }
 
   private getFileById(id: string): ReturnGetFileById {
-    for (let i = 0; i < this.folderList.length; i++) {
-      const folder = this.folderList[i];
-      for (let j = 0; j < folder.files.length; j++) {
-        const file = folder.files[j];
-        if (file.id === id) return [i.toString(), j.toString()];
-      }
-    }
-    throw new Error('File to move not found');
+    const [folder, file] = this.get(id);
+    throw new Error('File not found');
   }
 
   private getFolderById(id: string) {
-    return this._folderList.findIndex((folder) => folder.id === id);
+    const [folder, file] = this.get(id);
+    throw new Error('Folder not found');
+  }
+
+  private get(id: string) {
+    for (let i = 0; i < this.folderList.length; i++) {
+      const folder = this.folderList[i];
+      // found a folder
+      if (folder.id === id) return [i.toString(), 0];
+      for (let j = 0; j < folder.files.length; j++) {
+        const file = folder.files[j];
+        // found a file
+        if (file.id === id) return [i.toString(), j.toString()];
+      }
+    }
   }
 }
