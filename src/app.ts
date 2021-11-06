@@ -23,7 +23,7 @@ const folderList: FolderList = [
 
 function run() {
   const fileManager = FileManager.create(folderList);
-  console.log(fileManager.moveFileToFolder('4', '6').folderList);
+  return fileManager.moveFileToFolder('4', '6').folderList;
 }
-console.log('Starting');
-PerformanceTool.measure(run, 5);
+console.log('Starting!!');
+PerformanceTool.measure(run, 150);
