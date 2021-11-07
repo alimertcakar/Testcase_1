@@ -1,34 +1,24 @@
+## Task
+
+Move function moves a file to a folder.
+
 ## DISCLAIMER: Solution 1 - 2
 
 Solution 1: Performance based approach, runs extremely fast.
 Solution 2: Scalable object oriented approach, still fast but better code quality IMO.
 
-## Acceptance criteria
 
-Imagine an array that contains folders. These folders can have files in it. `move` function moves a file to another folder and returns the new state of given list.
 
-### Move function signature
+## Performance
 
-| Key         | Type     | Description                  |
-| ----------- | -------- | ---------------------------- |
-| list        | Folder[] | Given list                   |
-| source      | string   | Id of the moved file         |
-| destination | string   | Id of the folder to be moved |
+![performance](C:\Users\Monst\OneDrive\Belgeler\GitHub\FarmaborsaCore\Testcase_1\doc\performance.png)
 
-### Folder shape
+Both solution 1 and solution 2 is fast, solution 1 is faster because it only does 2 passes or less. Also lesser instantiation costs may have effected the test. Both are well under 1 milliseconds, I didn't bother to optimize further because:
 
-| Key   | Type    | Description                 |
-| ----- | ------- | --------------------------- |
-| id    | string  | Unique identifier of folder |
-| name  | string  | Name of the folder          |
-| files | File [] | Files in this folder        |
+> *"Premature optimization is the root of all evil"* 
 
-### File shape
+## Tests
 
-| Key  | Type   | Description               |
-| ---- | ------ | ------------------------- |
-| id   | string | Unique identifier of file |
-| name | string | Name of the file          |
+All pass with additional tests
 
->  All IDs are unique.
-
+![image-20211107192912917](C:\Users\Monst\AppData\Roaming\Typora\typora-user-images\image-20211107192912917.png)

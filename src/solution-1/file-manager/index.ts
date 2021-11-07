@@ -1,18 +1,16 @@
-/* eslint-disable no-console */
 // import FileNotFoundError from '../../common/errors/FileNotFoundError';
 // import FolderNotFoundError from '../../common/errors/FolderNotFoundError';
 // import TriedToFindFileButFoundFolderError from '../../common/errors/TriedToFindAFileButFoundFolderError';
 // import TriedToFindFolderButFoundFileError from '../../common/errors/TriedToFindFolderButFoundFileError';
-import { FolderList } from '../../types';
+// tuple [folderId,fileId]
+// type ReturnGetById = [number, number];
+// type ReturnGet = [number | null, number | null];
 // import { anyEmpty, deepCopy, isEmpty } from '../../utils';
+import { FolderList } from '../../types';
 
 interface FileManager1 {
   move: (sourceFile: string, destinationFolder: string) => FileMoverImpl;
 }
-
-// tuple [folderId,fileId]
-// type ReturnGetById = [number, number];
-// type ReturnGet = [number | null, number | null];
 
 export default class FileMoverImpl implements FileManager1 {
   private constructor(private _folderList: FolderList) {}
@@ -51,8 +49,6 @@ export default class FileMoverImpl implements FileManager1 {
           break;
         }
         if (file.id === destinationFolderId) {
-          console.log(file.id, 'fileid');
-          console.log(destinationFolderId, 'destinationFolderId');
           throw new Error('You cannot specify a file as the destination');
         }
       }
