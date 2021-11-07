@@ -25,18 +25,17 @@ const folderList: FolderList = [
 console.log('Starting!!');
 
 // Performant approach (Single loop O(1))
-// function solution1() {
-//   const fileManager = FileManager1.create(folderList);
-//   fileManager.moveFileToFolder('4', '6').folderList[1];
-//   // return fileManager.moveFileToFolder('4', '6').folderList;
-// }
+function solution1() {
+  const fileManager = FileManager1.create(folderList);
+  fileManager.move('4', '6');
+  // return fileManager.moveFileToFolder('4', '6').folderList;
+}
 
 // Scaleable & clean approach
 function solution2() {
   const fileManager = FileManager2.create(folderList);
-  fileManager.moveFileToFolder('4', '6').folderList[1];
-  // return fileManager.moveFileToFolder('4', '6').folderList;
+  fileManager.moveFileToFolder('4', '6');
 }
 
-// PerformanceTool.measure(solution1, 1);
-PerformanceTool.measure(solution2, 1);
+PerformanceTool.measure(solution1, 1000);
+PerformanceTool.measure(solution2, 1000);
