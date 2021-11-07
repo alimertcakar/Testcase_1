@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import FileManager from './solution-2/file-manager';
+import FileManager1 from './solution-1/file-manager';
+import FileManager2 from './solution-2/file-manager';
 import { FolderList } from './types';
 import { PerformanceTool } from './utils';
 
@@ -21,10 +22,21 @@ const folderList: FolderList = [
   },
 ];
 
-function run() {
-  const fileManager = FileManager.create(folderList);
-  console.log(fileManager.moveFileToFolder('4', '6').folderList[1]);
+console.log('Starting!!');
+
+// Performant approach (Single loop O(1))
+function solution1() {
+  const fileManager = FileManager1.create(folderList);
+  fileManager.moveFileToFolder('4', '6').folderList[1];
   // return fileManager.moveFileToFolder('4', '6').folderList;
 }
-console.log('Starting!!');
-PerformanceTool.measure(run, 1);
+
+// Scaleable & clean approach
+function solution2() {
+  const fileManager = FileManager2.create(folderList);
+  fileManager.moveFileToFolder('4', '6').folderList[1];
+  // return fileManager.moveFileToFolder('4', '6').folderList;
+}
+
+PerformanceTool.measure(solution1, 10000);
+PerformanceTool.measure(solution2, 10000);

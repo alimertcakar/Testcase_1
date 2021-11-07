@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { FileType, FolderList } from '../../types';
+import { FolderList } from '../../types';
 import { anyEmpty, isEmpty } from '../../utils';
+// import { FileType } from '../../types';
 
 interface FileManager {
   moveFileToFolder: (sourceFile: string, destinationFolder: string) => FileMoverImpl;
@@ -9,10 +10,10 @@ interface FileManager {
 // tuple [folderId,fileId]
 type ReturnGetById = [number, number];
 type ReturnGet = [number | null, number | null];
-type ReturnGetMany = Map<{ id: string; type: string }, ReturnGet>;
+// type ReturnGetMany = Map<{ id: string; type: string }, ReturnGet>;
 
 export default class FileMoverImpl implements FileManager {
-  private constructor(private readonly _folderList: FolderList) {}
+  private constructor(private _folderList: FolderList) {}
 
   static create(_folderList: FolderList): FileMoverImpl {
     if (!_folderList) {
@@ -32,21 +33,16 @@ export default class FileMoverImpl implements FileManager {
 
     const nextFolderList: FolderList = this._folderList;
 
-    let fileToMove;
     try {
       const [folderId, fileId] = this.getFileById(sourceFileId);
       //TODO dont splice
-      fileToMove = nextFolderList[+folderId].files.splice(+fileId, +fileId)[0];
+      const fileToMove = nextFolderList[+folderId].files.splice(+fileId, +fileId)[0];
+
+      const [folderId2] = this.getFolderById(destinationFolderId);
+      nextFolderList[+folderId2].files.push(fileToMove);
     } catch (e) {
       console.log(e, 'e');
       //You cannot move a folder
-    }
-
-    try {
-      const [folderId, fileId] = this.getFolderById(destinationFolderId);
-      nextFolderList[+folderId].files.push(fileToMove);
-    } catch (e) {
-      console.log(e, 'e');
       //You cannot specify a file as the destination
     }
 
@@ -82,19 +78,19 @@ export default class FileMoverImpl implements FileManager {
    * Find many files or folders by id. More performant then multiple get
    * @param id file / folder id
    */
-  private getMany(ids: Array<string>): ReturnGetMany {
-    let result = new Map(); //ReturnGet[]
-    this._folderList.forEach((folder, folderIndex) => {
-      if (ids.includes(folder.id))
-        result.set({ id: folder.id, type: FileType.Folder }, [folderIndex, null]);
-      folder.files.forEach((file, fileIndex) => {
-        if (ids.includes(file.id))
-          result.set({ id: folder.id, type: FileType.File }, [folderIndex, fileIndex]);
-      });
-    });
+  // private getMany(ids: Array<string>): ReturnGetMany {
+  //   let result = new Map(); //ReturnGet[]
+  //   this._folderList.forEach((folder, folderIndex) => {
+  //     if (ids.includes(folder.id))
+  //       result.set({ id: folder.id, type: FileType.Folder }, [folderIndex, null]);
+  //     folder.files.forEach((file, fileIndex) => {
+  //       if (ids.includes(file.id))
+  //         result.set({ id: folder.id, type: FileType.File }, [folderIndex, fileIndex]);
+  //     });
+  //   });
 
-    return result;
-  }
+  //   return result;
+  // }
 
   /**
    * Find file or folder by id
