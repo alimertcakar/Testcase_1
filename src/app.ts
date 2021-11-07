@@ -25,11 +25,11 @@ const folderList: FolderList = [
 console.log('Starting!!');
 
 // Performant approach (Single loop O(1))
-function solution1() {
-  const fileManager = FileManager1.create(folderList);
-  fileManager.moveFileToFolder('4', '6').folderList[1];
-  // return fileManager.moveFileToFolder('4', '6').folderList;
-}
+// function solution1() {
+//   const fileManager = FileManager1.create(folderList);
+//   fileManager.moveFileToFolder('4', '6').folderList[1];
+//   // return fileManager.moveFileToFolder('4', '6').folderList;
+// }
 
 // Scaleable & clean approach
 function solution2() {
@@ -38,5 +38,5 @@ function solution2() {
   // return fileManager.moveFileToFolder('4', '6').folderList;
 }
 
-PerformanceTool.measure(solution1, 10000);
-PerformanceTool.measure(solution2, 10000);
+// PerformanceTool.measure(solution1, 1);
+PerformanceTool.measure(solution2, 1);

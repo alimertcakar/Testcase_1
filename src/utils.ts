@@ -57,3 +57,8 @@ export class PerformanceTool {
     return totalRunTime;
   }
 }
+
+export function deepCopy(obj: object) {
+  // deep copies simple objects. does not resolve circular deps
+  return JSON.parse(JSON.stringify(obj));
+}

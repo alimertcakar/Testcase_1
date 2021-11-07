@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { FolderList } from '../../types';
-import { anyEmpty, isEmpty } from '../../utils';
+import { anyEmpty, deepCopy, isEmpty } from '../../utils';
 // import { FileType } from '../../types';
 
 interface FileManager {
@@ -13,12 +13,16 @@ type ReturnGet = [number | null, number | null];
 // type ReturnGetMany = Map<{ id: string; type: string }, ReturnGet>;
 
 export default class FileMoverImpl implements FileManager {
-  private constructor(private _folderList: FolderList) {}
+  private _folderList: FolderList;
+  private constructor(folderList: FolderList) {
+    this._folderList = deepCopy(folderList);
+  }
 
   static create(_folderList: FolderList): FileMoverImpl {
     if (!_folderList) {
       throw new Error('Invalid list');
     }
+
     return new FileMoverImpl(_folderList);
   }
 
@@ -31,15 +35,14 @@ export default class FileMoverImpl implements FileManager {
       throw new Error('Invalid parameter');
     }
 
-    const nextFolderList: FolderList = this._folderList;
+    const nextFolderList: FolderList = deepCopy(this._folderList);
 
     try {
       const [folderId, fileId] = this.getFileById(sourceFileId);
-      //TODO dont splice
+      //TODO dont splice do it immutable
       const fileToMove = nextFolderList[+folderId].files.splice(+fileId, +fileId)[0];
-
-      const [folderId2] = this.getFolderById(destinationFolderId);
-      nextFolderList[+folderId2].files.push(fileToMove);
+      const [destinationFolder] = this.getFolderById(destinationFolderId);
+      nextFolderList[+destinationFolder].files.push(fileToMove);
     } catch (e) {
       console.log(e, 'e');
       //You cannot move a folder
