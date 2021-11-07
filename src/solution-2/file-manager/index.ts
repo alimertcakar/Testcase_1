@@ -40,10 +40,7 @@ export default class FileMoverImpl implements FileManager {
     try {
       const [folderId, fileId] = this.getFileById(sourceFileId);
       //TODO dont splice do it immutable
-      console.log(nextFolderList[0], 'nextFolderList 0');
       const fileToMove = nextFolderList[+folderId].files.splice(+fileId, 1)[0];
-      console.log(nextFolderList[0], 'nextFolderList 0 1');
-      console.log(fileToMove, 'fileToMove');
 
       const [destinationFolder] = this.getFolderById(destinationFolderId);
       nextFolderList[+destinationFolder].files.push(fileToMove);
