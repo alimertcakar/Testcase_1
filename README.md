@@ -22,4 +22,5 @@ Both solution 1 and solution 2 is fast, solution 1 is faster because it only doe
 
 All pass with additional tests
 
-![../doc/tests.png]
+![https://github.com/alimertcakar/Testcase_1/blob/main/doc/tests.png](https://github.com/alimertcakar/Testcase_1/blob/main/doc/tests.png)
+
