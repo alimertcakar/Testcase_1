@@ -1,21 +1,27 @@
 /* eslint-disable no-console */
+// import FileNotFoundError from '../../common/errors/FileNotFoundError';
+// import FolderNotFoundError from '../../common/errors/FolderNotFoundError';
+// import TriedToFindFileButFoundFolderError from '../../common/errors/TriedToFindAFileButFoundFolderError';
+// import TriedToFindFolderButFoundFileError from '../../common/errors/TriedToFindFolderButFoundFileError';
 import { FolderList } from '../../types';
-import { anyEmpty } from '../../utils';
+// import { anyEmpty, deepCopy, isEmpty } from '../../utils';
 
-interface FileManager {
-  moveFileToFolder: (sourceFile: string, destinationFolder: string) => FileMoverImpl;
+interface FileManager1 {
+  move: (sourceFile: string, destinationFolder: string) => FileMoverImpl;
 }
 
 // tuple [folderId,fileId]
-type ReturnGetFileById = [string, string];
+// type ReturnGetById = [number, number];
+// type ReturnGet = [number | null, number | null];
 
-export default class FileMoverImpl implements FileManager {
+export default class FileMoverImpl implements FileManager1 {
   private constructor(private _folderList: FolderList) {}
 
   static create(_folderList: FolderList): FileMoverImpl {
     if (!_folderList) {
       throw new Error('Invalid list');
     }
+
     return new FileMoverImpl(_folderList);
   }
 
@@ -23,43 +29,45 @@ export default class FileMoverImpl implements FileManager {
     return this._folderList;
   }
 
-  public moveFileToFolder(sourceFileId: string, destinationFolderId: string): FileMoverImpl {
-    if (anyEmpty(sourceFileId, destinationFolderId)) {
-      throw new Error('Invalid parameter');
-    }
+  move(sourceFileId: string, destinationFolderId: string) {
+    let fileToMove = null;
+    let destFolderIndex = null;
+    for (let folderIndex = 0; folderIndex < this.folderList.length; folderIndex++) {
+      const folder = this.folderList[folderIndex];
 
-    //You cannot move a folder
-    //You cannot specify a file as the destination
-
-    // copy folderList
-    const newFolderList: FolderList = this._folderList;
-
-    // get file to copy
-    const [folderId, fileId] = this.getFileById(sourceFileId);
-
-    // splice the file
-    const fileToMove = newFolderList[+folderId].files.splice(+fileId, +fileId)[0];
-
-    // move...
-    const destinationFolderIndex = this.getFolderById(destinationFolderId);
-    newFolderList[destinationFolderIndex].files.push(fileToMove);
-
-    this._folderList = newFolderList;
-    return this;
-  }
-
-  private getFileById(id: string): ReturnGetFileById {
-    for (let i = 0; i < this.folderList.length; i++) {
-      const folder = this.folderList[i];
-      for (let j = 0; j < folder.files.length; j++) {
-        const file = folder.files[j];
-        if (file.id === id) return [i.toString(), j.toString()];
+      if (folder.id === destinationFolderId) {
+        destFolderIndex = folderIndex;
       }
-    }
-    throw new Error('File to move not found');
-  }
+      if (folder.id === sourceFileId) {
+        throw new Error('You cannot move a folder');
+      }
 
-  private getFolderById(id: string) {
-    return this._folderList.findIndex((folder) => folder.id === id);
+      for (let fileIndex = 0; fileIndex < folder.files.length; fileIndex++) {
+        const file = folder.files[fileIndex];
+
+        if (file.id === sourceFileId) {
+          fileToMove = file;
+          folder.files.splice(fileIndex, 1);
+          break;
+        }
+        if (file.id === destinationFolderId) {
+          console.log(file.id, 'fileid');
+          console.log(destinationFolderId, 'destinationFolderId');
+          throw new Error('You cannot specify a file as the destination');
+        }
+      }
+
+      if (fileToMove && destFolderIndex) break;
+    }
+    if (!fileToMove) {
+      throw Error('File not found');
+    }
+    if (!destFolderIndex) {
+      throw Error('Folder not found');
+    }
+    const targetFolder = this._folderList[destFolderIndex];
+    targetFolder.files.push(fileToMove);
+
+    return this;
   }
 }
