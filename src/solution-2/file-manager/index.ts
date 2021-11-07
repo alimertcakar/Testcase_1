@@ -1,4 +1,8 @@
 /* eslint-disable no-console */
+import FileNotFoundError from '../../common/errors/FileNotFoundError';
+import FolderNotFoundError from '../../common/errors/FolderNotFoundError';
+import TriedToFindFileButFoundFolderError from '../../common/errors/TriedToFindAFileButFoundFolderError';
+import TriedToFindFolderButFoundFileError from '../../common/errors/TriedToFindFolderButFoundFileError';
 import { FolderList } from '../../types';
 import { anyEmpty, deepCopy, isEmpty } from '../../utils';
 // import { FileType } from '../../types';
@@ -44,9 +48,15 @@ export default class FileMoverImpl implements FileManager {
 
       nextFolderList[+destinationFolder].files.push(fileToMove);
     } catch (e) {
-      console.log(e, 'e');
-      //You cannot move a folder
-      //You cannot specify a file as the destination
+      // Burası biraz redundant :), ama testleri override etmek istemedim.
+      if (e instanceof TriedToFindFileButFoundFolderError) {
+        throw new Error('You cannot move a folder');
+      } else if (e instanceof TriedToFindFolderButFoundFileError) {
+        throw new Error('You cannot specify a file as the destination');
+      } else {
+        // console.log(e, 'e');
+        throw e;
+      }
     }
 
     this._folderList = nextFolderList;
@@ -57,9 +67,11 @@ export default class FileMoverImpl implements FileManager {
     const [folder, file] = this.get(id);
 
     if (isEmpty(file) && !isEmpty(folder)) {
-      throw new Error('Tried to find a file but found folder');
+      // throw new Error('Tried to find a file but found folder');
+      throw new TriedToFindFileButFoundFolderError();
     } else if (isEmpty(file)) {
-      throw new Error('File  not found');
+      // throw new Error('File  not found');
+      throw new FileNotFoundError();
     } else {
       return [<number>folder, <number>file];
     }
@@ -69,9 +81,11 @@ export default class FileMoverImpl implements FileManager {
     const [folder, file] = this.get(id);
 
     if (!isEmpty(file)) {
-      throw new Error('Tried to find a folder but found file');
+      throw new TriedToFindFolderButFoundFileError();
+      // throw new Error('Tried to find a folder but found file');
     } else if (isEmpty(folder)) {
-      throw new Error('Folder not found');
+      throw new FolderNotFoundError();
+      // throw new Error('Folder not found');
     } else {
       return [<number>folder, <number>file];
     }
