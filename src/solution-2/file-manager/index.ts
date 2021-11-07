@@ -12,7 +12,7 @@ type ReturnGet = [number | null, number | null];
 type ReturnGetMany = Map<{ id: string; type: string }, ReturnGet>;
 
 export default class FileMoverImpl implements FileManager {
-  private constructor(private _folderList: FolderList) {}
+  private constructor(private readonly _folderList: FolderList) {}
 
   static create(_folderList: FolderList): FileMoverImpl {
     if (!_folderList) {
