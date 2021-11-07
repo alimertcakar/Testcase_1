@@ -11,7 +11,8 @@ Solution 2: Scalable object oriented approach, still fast but better code qualit
 
 ## Performance
 
-![performance](C:\Users\Monst\OneDrive\Belgeler\GitHub\FarmaborsaCore\Testcase_1\doc\performance.png)
+![https://github.com/alimertcakar/Testcase_1/blob/main/doc/performance.png](https://github.com/alimertcakar/Testcase_1/blob/main/doc/performance.png)
+
 
 Both solution 1 and solution 2 is fast, solution 1 is faster because it only does 2 passes or less. Also lesser instantiation costs may have effected the test. Both are well under 1 milliseconds, I didn't bother to optimize further because:
 
@@ -21,4 +22,4 @@ Both solution 1 and solution 2 is fast, solution 1 is faster because it only doe
 
 All pass with additional tests
 
-![image-20211107192912917](C:\Users\Monst\AppData\Roaming\Typora\typora-user-images\image-20211107192912917.png)
+![../doc/tests.png]
