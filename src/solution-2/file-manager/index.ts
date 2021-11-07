@@ -9,6 +9,7 @@ interface FileManager {
 // tuple [folderId,fileId]
 type ReturnGetById = [number, number];
 type ReturnGet = [number | null, number | null];
+type ReturnGetMany = Map<{ id: string; type: string }, ReturnGet>;
 
 export default class FileMoverImpl implements FileManager {
   private constructor(private _folderList: FolderList) {}
@@ -81,7 +82,7 @@ export default class FileMoverImpl implements FileManager {
    * Find many files or folders by id. More performant then multiple get
    * @param id file / folder id
    */
-  private getMany(ids: Array<string>): Map<{ id: string; type: string }, ReturnGet> {
+  private getMany(ids: Array<string>): ReturnGetMany {
     let result = new Map(); //ReturnGet[]
     this._folderList.forEach((folder, folderIndex) => {
       if (ids.includes(folder.id))
