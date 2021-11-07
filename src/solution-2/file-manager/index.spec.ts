@@ -1,7 +1,7 @@
 import {
   folderList1,
   folderList1_Test1Result,
-  //   folderList2,
+  folderList2,
   //   folderList3,
 } from '../../common/mock/index';
 import FileManager from '../file-manager/index';
@@ -19,12 +19,12 @@ describe('move', () => {
     expect(fileManager.folderList).toStrictEqual(result);
   });
 
-  //   it('throws error if given source is not a file', () => {
-  //     const list = folderList2;
-  //     const fileManager = FileManager.create(list);
+  it('throws error if given source is not a file', () => {
+    const list = folderList2;
+    const fileManager = FileManager.create(list);
 
-  //     expect(() => fileManager.moveFileToFolder('3', '1')).toThrow('You cannot move a folder');
-  //   });
+    expect(() => fileManager.moveFileToFolder('3', '1')).toThrow('You cannot move a folder');
+  });
 
   //   it('throws error if given destination is not a folder', () => {
   //     const list = folderList3;
