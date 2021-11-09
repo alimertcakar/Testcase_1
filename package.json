@@ -1,6 +1,13 @@
 {
-  "name": "js-question",
+  "name": "@alimert/testcase01",
+  "version": "1.0.2",
+  "description": "testcase 01",
+  "main": "dist/src/index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alimertcakar/Testcase_1.git"
+  },
   "scripts": {
     "test": "jest",
     "lint:tsc": "tsc",
